@@ -9,7 +9,10 @@ I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and use
 ## Setup
 
 #### The vm
+First I tried installing Spark and Airflow on my laptop, but it died the minute I tried to start Airflow. Then I tried the free ec2 tier on AWS, but the same happened again. Now I'm trying my luck with this vm:  
+
 Ubuntu, 4 CPUs, 16 GB RAM, 50 GB  
+  
 set up several ports for inbound (and outbound) traffic:  
 7077 - Spark  
 8080 - Spark UI  
@@ -20,10 +23,22 @@ set up several ports for inbound (and outbound) traffic:
 5000 - Docker  
    
 #### Git
-   created a git repo on github and cloned it onto my vm
-   
+created a git repo on github and cloned it onto my vm
+
+#### Virtual environment
+created and activated a virtual environment "venv"
+
+#### Java
+installed Java (for Spark)
+
 #### Apache Spark
 downloaded Apache Spark from the official website, unpacked it and saved it in /opt/spark
+```
+curl -O https://dlcdn.apache.org/spark/spark-3.5.0/spark-3.5.0-bin-hadoop3.tgz
+tar -xvzf spark-3.5.0-bin-hadoop3.tgz
+mv spark-3.5.0-bin-hadoop3 /opt/spark
+```
+
 edited the users shell profile in .bashrc
 ```
 export SPARK_HOME=/opt/spark
@@ -52,5 +67,29 @@ started the worker node:
 sbin/start-worker.sh spark://10.11.1.81:7077
 ```
 and opened the web UI under http://my_public_ip_address:8080/
+
+#### PostgreSQL Server
+installed PostgreSQL with package manager
+```
+sudo apt-get update
+sudo apt-get install postgresql postgresql-contrib
+```
+Started server
+```
+sudo service postgresql start
+sudo systemctl enable postgresql
+```
+Created user and database for Airflow
+```
+sudo -u postgres psql
+CREATE USER airflowuser WITH PASSWORD 'my_password';
+CREATE DATABASE airflowdb;
+ALTER ROLE airflowuser SET client_encoding TO 'utf8';
+ALTER ROLE airflowuser SET default_transaction_isolation TO 'read committed';
+ALTER ROLE airflowuser SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE airflowdb TO airflowuser;
+\q
+```
+
 
 #### Airflow
