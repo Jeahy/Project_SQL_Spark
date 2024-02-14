@@ -23,34 +23,34 @@ I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and use
    created a git repo on github and cloned it onto my vm
    
 #### Apache Spark
-   downloaded Apache Spark from the official website, unpacked it and saved it in /opt/spark
-   edited the users shell profile in .bashrc
-     ```
-     export SPARK_HOME=/opt/spark
-     export PATH=$SPARK_HOME/bin:$PATH
-     ```
-   and activated it
-     ```
-     source ~/.bashrc
-     ```
-   added to the spark-env.sh file in conf directory:
-     ```
-     # Set the master node
-    export SPARK_MASTER_HOST=my_public_ip_address
-    export SPARK_MASTER_PORT=7077
-    export SPARK_MASTER_WEBUI_PORT=8080
-    # Set the worker nodes
-    export SPARK_WORKER_CORES=2
-    export SPARK_WORKER_MEMORY=2g
-     ```
-   started the master node:
-     ```
-     sbin/start-master.sh
-     ```
-   started the worker node:
-     ```
-     sbin/start-worker.sh spark://10.11.1.81:7077
-     ```
+downloaded Apache Spark from the official website, unpacked it and saved it in /opt/spark
+edited the users shell profile in .bashrc
+```
+export SPARK_HOME=/opt/spark
+export PATH=$SPARK_HOME/bin:$PATH
+```
+and activated it
+```
+source ~/.bashrc
+```
+added to the spark-env.sh file in conf directory:
+```
+# Set the master node
+export SPARK_MASTER_HOST=my_public_ip_address
+export SPARK_MASTER_PORT=7077
+export SPARK_MASTER_WEBUI_PORT=8080
+# Set the worker nodes
+export SPARK_WORKER_CORES=2
+export SPARK_WORKER_MEMORY=2g
+```
+started the master node:
+```
+sbin/start-master.sh
+```
+started the worker node:
+```
+sbin/start-worker.sh spark://10.11.1.81:7077
+```
 and opened the web UI under http://my_public_ip_address:8080/
 
 #### Airflow
