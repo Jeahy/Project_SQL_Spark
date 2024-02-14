@@ -8,7 +8,7 @@ I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and use
 
 ## Setup
 
-####The vm
+###The vm
    Ubuntu, 4 CPUs, 16 GB RAM, 50 GB,
    set up several ports for inbound (and outbound) traffic:
    7077 - Spark
