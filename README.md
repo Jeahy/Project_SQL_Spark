@@ -8,7 +8,7 @@ I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and use
 
 ## Setup
 
-1. The vm
+####The vm
    Ubuntu, 4 CPUs, 16 GB RAM, 50 GB,
    set up several ports for inbound (and outbound) traffic:
    7077 - Spark
@@ -19,10 +19,10 @@ I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and use
    8081 - Airflow UI
    5000 - Docker
    
-3. git repository
+####Git
    created a git repo on github and cloned it onto my vm
    
-2. Apache Spark
+####Apache Spark
    downloaded Apache Spark from the official website, unpacked it and saved it in /opt/spark
    edited the users shell profile in .bashrc
      ```
@@ -53,4 +53,4 @@ I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and use
      ```
 and opened the web UI under http://my_public_ip_address:8080/
 
-3. Airflow
+####Airflow
