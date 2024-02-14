@@ -9,15 +9,15 @@ I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and use
 ## Setup
 
 #### The vm
-   Ubuntu, 4 CPUs, 16 GB RAM, 50 GB,
-   set up several ports for inbound (and outbound) traffic:
-   7077 - Spark
-   8080 - Spark UI
-   5432 - Database
-   3000 - API
-   6443, 2379-2380, 10250, 10251, and 10252 - Kubernetes
-   8081 - Airflow UI
-   5000 - Docker
+Ubuntu, 4 CPUs, 16 GB RAM, 50 GB,
+set up several ports for inbound (and outbound) traffic:
+7077 - Spark
+8080 - Spark UI
+5432 - Database
+3000 - API
+6443, 2379-2380, 10250, 10251, and 10252 - Kubernetes
+8081 - Airflow UI
+5000 - Docker
    
 #### Git
    created a git repo on github and cloned it onto my vm
