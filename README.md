@@ -48,7 +48,7 @@ and activated it
 ```
 source ~/.bashrc
 ```
-added to the spark-env.sh file in conf directory:
+added informatoin on master and worker node to the spark-env.sh file in conf directory for standalone mode:
 ```
 # Set the master node
 export SPARK_MASTER_HOST=my_public_ip_address
