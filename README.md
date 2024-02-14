@@ -6,9 +6,9 @@ I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and use
 ## Architecture 
 ![Pipeline Architecture](https://github.com/Jeahy/e-commerce_data_pipeline/blob/main/images/architecture.png)
 
-## Setup
-
-#### The vm
+## Setup  
+  
+### The vm
 First I tried installing Spark and Airflow on my laptop, but it died the minute I tried to start Airflow. Then I tried the free ec2 tier on AWS, but the same happened again. Now I'm trying my luck with this vm:  
 
 Ubuntu, 4 CPUs, 16 GB RAM, 50 GB  
@@ -20,18 +20,18 @@ set up several ports for inbound (and outbound) traffic:
 3000 - API  
 6443, 2379-2380, 10250, 10251, and 10252 - Kubernetes  
 8081 - Airflow UI  
-5000 - Docker  
-   
-#### Git
+5000 - Docker 
+  
+### Git
 created a git repo on github and cloned it onto my vm
-
-#### Virtual environment
+  
+### Virtual environment
 created and activated a virtual environment "venv"
-
-#### Java
+  
+### Java
 installed Java (for Spark)
-
-#### Apache Spark
+  
+### Apache Spark
 downloaded Apache Spark from the official website, unpacked it and saved it in /opt/spark
 ```
 curl -O https://dlcdn.apache.org/spark/spark-3.5.0/spark-3.5.0-bin-hadoop3.tgz
@@ -67,8 +67,8 @@ started the worker node:
 sbin/start-worker.sh spark://10.11.1.81:7077
 ```
 and opened the web UI under http://my_public_ip_address:8080/
-
-#### PostgreSQL Server
+  
+### PostgreSQL Server
 installed PostgreSQL with package manager
 ```
 sudo apt-get update
@@ -91,5 +91,5 @@ GRANT ALL PRIVILEGES ON DATABASE airflowdb TO airflowuser;
 \q
 ```
 
-
-#### Airflow
+  
+### Airflow
