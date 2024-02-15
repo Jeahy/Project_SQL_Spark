@@ -97,3 +97,13 @@ used pip to install Airflow
 ```
 pip install apache-airflow[postgres]
 ```
+set environment variable AIRFLOW_HOME:
+```
+export AIRFLOW_HOME=~/e-commerce_data_pipeline/airflow
+```
+initialised Airflow database, which didn't work, but created the airflow.cfg file
+```
+airflow db init
+```
+edited airflow.cfg 
+```ls
