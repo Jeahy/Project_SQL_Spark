@@ -93,3 +93,7 @@ GRANT ALL PRIVILEGES ON DATABASE airflowdb TO airflowuser;
 
   
 ### Airflow
+used pip to install Airflow
+```
+pip install apache-airflow[postgres]
+```
