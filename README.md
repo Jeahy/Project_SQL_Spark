@@ -129,6 +129,11 @@ launched web UI (I had to change the spark worker web ui port first, because it'
 ```
 airflow webserver --port 8081
 ```
+started the airflow scheduler
+```
+airflow scheduler
+```
+created dags and plugins directoris in the airflow directory
 
 
 
