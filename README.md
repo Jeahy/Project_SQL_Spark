@@ -4,9 +4,9 @@
 I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and used [this e-commerce data](https://www.kaggle.com/datasets/carrie1/ecommerce-data) from Kaggle
 
 ### Sections:  
-[Architecture](#Architechture)  
-[Setup](#setup)  
-  [The vm](#the-vm)  
+- [Architecture](#Architechture)  
+- [Setup](#setup)  
+   - [The vm](#the-vm)  
 [Git](#git)  
 [Virtual environment](#virtual-environment)  
 [Java](#java)  
