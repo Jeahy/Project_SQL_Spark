@@ -3,7 +3,7 @@
 #### Practice Project
 I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and used [this e-commerce data](https://www.kaggle.com/datasets/carrie1/ecommerce-data) from Kaggle
 
-### Sections:  
+#### Chapters:  
 - [Architecture](#Architechture)  
 - [Setup](#setup)  
    - [The vm](#the-vm)  
