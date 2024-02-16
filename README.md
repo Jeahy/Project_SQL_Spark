@@ -5,7 +5,8 @@ I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and use
 
 ### Sections:  
 [Architecture](#Architechture)  
-[The vm](#the-vm)  
+[Setup](#setup)  
+  [The vm](#the-vm)  
 [Git](#git)  
 [Virtual environment](#virtual-environment)  
 [Java](#java)  
