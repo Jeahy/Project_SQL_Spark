@@ -7,12 +7,12 @@ I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and use
 - [Architecture](#Architechture)  
 - [Setup](#setup)  
    - [The vm](#the-vm)  
-[Git](#git)  
-[Virtual environment](#virtual-environment)  
-[Java](#java)  
-[Apache Apark](#apache-spark)  
-[PostgreSQL Server](#postgresql-server)  
-[Airflow](#airflow)  
+   - [Git](#git)  
+   - [Virtual environment](#virtual-environment)  
+   - [Java](#java)  
+   - [Apache Apark](#apache-spark)  
+   - [PostgreSQL Server](#postgresql-server)  
+   - [Airflow](#airflow)  
 
 ## Architecture 
 ![Pipeline Architecture](https://github.com/Jeahy/e-commerce_data_pipeline/blob/main/images/architecture.png)
