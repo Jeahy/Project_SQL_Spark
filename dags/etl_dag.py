@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-
+from e-commerce_data_pipeline.scripts.imp_clean_trans_script import clean_transform_main
+from e-commerce_data_pipeline.scripts.config import input_raw, output_transformed
 
 default_args = {
     'owner': 'jessica',
@@ -22,3 +23,15 @@ dag = DAG(
     schedule_interval='@daily',  # Set your desired schedule
     catchup=False,
 )
+
+
+import_clean_transform_task = PythonOperator(
+    task_id = 'import_clean_transform',
+    python_callable = clean_transform_main,
+    op_args=[input_raw, output_transformed],
+    provide_context=True,  # Pass the Airflow context to the function
+    dag = dag,
+)
+
+
+import_clean_transform_task

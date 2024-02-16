@@ -2,6 +2,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, to_timestamp
 from pyspark.sql.types import StringType, DoubleType, IntegerType
 from pyspark.sql.functions import count, when
+from e-commerce_data_pipeline.scripts.config import input_raw, output_transformed
 
 
 def display_data_info(df):
