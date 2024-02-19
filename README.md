@@ -35,6 +35,9 @@ set up several ports for inbound (and outbound) traffic:
   
 ### Git
 created a git repo on github and cloned it onto my vm
+```
+git clone 
+```
   
 ### Virtual environment
 created and activated a virtual environment "venv"
