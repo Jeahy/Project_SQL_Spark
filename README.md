@@ -36,14 +36,22 @@ set up several ports for inbound (and outbound) traffic:
 ### Git
 created a git repo on github and cloned it onto my vm
 ```
-git clone 
+git clone https://github.com/Jeahy/ecompipeline.git
 ```
   
 ### Virtual environment
 created and activated a virtual environment "venv"
-  
+```
+sudo apt install python3.10-venv
+python3 -m venv venv
+source venv/bin/activate
+```
+
 ### Java
 installed Java (for Spark)
+```
+sudo apt install openjdk-21-jdk
+```
   
 ### Apache Spark
 I downloaded Apache Spark from the official website, unpacked it and saved it in /opt/spark
