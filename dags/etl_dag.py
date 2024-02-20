@@ -1,8 +1,11 @@
 from datetime import datetime, timedelta
+import sys
+sys.path.append('/home/pkn/ecompipeline/')
+
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from e-commerce_data_pipeline.scripts.imp_clean_trans_script import clean_transform_main
-from e-commerce_data_pipeline.scripts.config import input_raw, output_transformed
+from scripts.imp_clean_trans_script import clean_transform_main
+from scripts.config import input_raw, output_transformed
 
 default_args = {
     'owner': 'jessica',

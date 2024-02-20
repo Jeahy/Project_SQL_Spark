@@ -1,5 +1,5 @@
-input_raw = "~/e-commerce_data_pipeline/data/raw_data.csv"
-output_transformed = "~/e-commerce_data_pipeline/data/transformed_data.parquet"
+input_raw = "/home/pkn/ecompipeline/data/raw_data.csv"
+output_transformed = "/home/pkn/ecompipeline/data/transformed_data.parquet"
 db_url = 'postgresql://sparkuser:sparkpassword@localhost:5432/sparkdb'
 user = "sparkuser"
 password = "sparkpassword"
