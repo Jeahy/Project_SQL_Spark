@@ -52,7 +52,15 @@ installed Java (for Spark)
 ```
 sudo apt install openjdk-21-jdk
 ```
-  
+add path to Java
+```
+export JAVA_HOME=/bin/java
+export PATH=$JAVA_HOME/bin:$PATH
+```
+activated it
+```
+source ~/.bashrc
+```
 ### Apache Spark
 I downloaded Apache Spark from the official website, unpacked it and saved it in /opt/spark
 ```
@@ -166,7 +174,22 @@ airflow scheduler
 ```
 created dags, data, scripts directories and __init__.py files in the ecompipeline, dags and scripts directory.
 
+### PySpark
+I installed findspark
+```
+pip install findspark
+```
+and added this to my scripts
+```
+import findspark
+findspark.init('/opt/spark')
+```
 
+### Kaggle
+I installed kaggle
+```
+pip install kaggle
+```
 
 
 
