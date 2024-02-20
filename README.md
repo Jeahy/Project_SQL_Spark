@@ -36,21 +36,29 @@ set up several ports for inbound (and outbound) traffic:
 ### Git
 created a git repo on github and cloned it onto my vm
 ```
-git clone 
+git clone https://github.com/Jeahy/ecompipeline.git
 ```
   
 ### Virtual environment
 created and activated a virtual environment "venv"
-  
+```
+sudo apt install python3.10-venv
+python3 -m venv venv
+source venv/bin/activate
+```
+
 ### Java
 installed Java (for Spark)
+```
+sudo apt install openjdk-21-jdk
+```
   
 ### Apache Spark
 I downloaded Apache Spark from the official website, unpacked it and saved it in /opt/spark
 ```
 curl -O https://dlcdn.apache.org/spark/spark-3.5.0/spark-3.5.0-bin-hadoop3.tgz
 tar -xvzf spark-3.5.0-bin-hadoop3.tgz
-mv spark-3.5.0-bin-hadoop3 /opt/spark
+sudo mv spark-3.5.0-bin-hadoop3 /opt/spark
 ```
 
 edited the users shell profile in .bashrc
@@ -62,15 +70,20 @@ activated it
 ```
 source ~/.bashrc
 ```
+create spark-env.sh file
+```
+cp spark-env.sh.template spark-env.sh
+```
 added informatoin on master and worker node to the spark-env.sh file in conf directory for standalone mode:
 ```
 # Set the master node
-export SPARK_MASTER_HOST=my_public_ip_address
+export SPARK_MASTER_HOST=10.11.1.81
 export SPARK_MASTER_PORT=7077
 export SPARK_MASTER_WEBUI_PORT=8080
 # Set the worker nodes
 export SPARK_WORKER_CORES=2
 export SPARK_WORKER_MEMORY=2g
+export SPARK_WORKER_WEBUI_PORT=8079
 ```
 started the master node:
 ```
@@ -80,7 +93,7 @@ started the worker node:
 ```
 sbin/start-worker.sh spark://10.11.1.81:7077
 ```
-and opened the web UI under http://my_public_ip_address:8080/
+and opened the web UI under http://185.150.32.130:8080/
   
 ### PostgreSQL Server
 I installed PostgreSQL with package manager
@@ -113,9 +126,9 @@ pip install apache-airflow[postgres]
 ```
 set environment variable AIRFLOW_HOME:
 ```
-export AIRFLOW_HOME=~/e-commerce_data_pipeline/airflow
+export AIRFLOW_HOME=~/ecompipeline/airflow
 ```
-initialised Airflow database, which didn't work, but created the airflow.cfg file
+initialised Airflow database, which didn't work, but it created the airflow.cfg file
 ```
 airflow db init
 ```
@@ -125,7 +138,7 @@ sql_alchemy_conn = postgresql+psycopg2://airflowuser:my_password@localhost/airfl
 ```
 added this to the shell profile ~/.bashrc to make it persitent
 ```
-export AIRFLOW_HOME=~/e-commerce_data_pipeline/airflow
+export AIRFLOW_HOME=~/ecompipeline/airflow
 ```
 had to install an older version of flask
 ```
@@ -139,7 +152,11 @@ created airflow user
 ```
 airflow users create -e jeticodes@gmail.com -f jessica -l ti -r Admin -u airflow -p airflow
 ```
-launched web UI (I had to change the spark worker web ui port first, because it's by default 8081)
+installed  virtualenv in the Virtual Environment
+```
+pip install virtualenv
+```
+launched web UI (I had to change the spark worker web ui port first, because it's by default 8081) and opened the web UI under http://185.150.32.130:8081/
 ```
 airflow webserver --port 8081
 ```
@@ -147,7 +164,9 @@ started the airflow scheduler
 ```
 airflow scheduler
 ```
-created dags and plugins directoris in the airflow directory
+created dags, data, scripts directories and __init__.py files in the ecompipeline, dags and scripts directory.
+
+
 
 
 
