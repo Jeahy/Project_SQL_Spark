@@ -4,8 +4,10 @@ sys.path.append('/home/pkn/ecompipeline/')
 
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from scripts.imp_clean_trans_script import clean_transform_main
 from scripts.config import input_raw, output_transformed
+from scripts.download_data_script import download_data_main
+from scripts.imp_clean_trans_script import clean_transform_main
+
 
 default_args = {
     'owner': 'jessica',
@@ -28,6 +30,13 @@ dag = DAG(
 )
 
 
+download_data_task = PythonOperator(
+    task_id = 'download_data',
+    python_callable = download_data_main,
+    provide_context=True,  # Pass the Airflow context to the function
+    dag = dag,
+)
+
 import_clean_transform_task = PythonOperator(
     task_id = 'import_clean_transform',
     python_callable = clean_transform_main,
@@ -37,4 +46,4 @@ import_clean_transform_task = PythonOperator(
 )
 
 
-import_clean_transform_task
+download_data_task >> import_clean_transform_task
