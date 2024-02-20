@@ -164,7 +164,7 @@ started the airflow scheduler
 ```
 airflow scheduler
 ```
-created dags and plugins directoris in the airflow directory
+created dags, data, scripts directories and __init__.py files in the ecompipeline, dags and scripts directory.
 
 
 
