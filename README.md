@@ -152,6 +152,10 @@ created airflow user
 ```
 airflow users create -e jeticodes@gmail.com -f jessica -l ti -r Admin -u airflow -p airflow
 ```
+installed  virtualenv in the Virtual Environment
+```
+pip install virtualenv
+```
 launched web UI (I had to change the spark worker web ui port first, because it's by default 8081) and opened the web UI under http://185.150.32.130:8081/
 ```
 airflow webserver --port 8081
@@ -161,6 +165,7 @@ started the airflow scheduler
 airflow scheduler
 ```
 created dags and plugins directoris in the airflow directory
+
 
 
 
