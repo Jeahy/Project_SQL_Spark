@@ -1,2 +1,0 @@
-[[34m2024-02-19T16:31:13.701+0000[0m] {[34mtask_context_logger.py:[0m63} INFO[0m - Task context logging is enabled[0m
-[[34m2024-02-19T16:31:13.702+0000[0m] {[34mexecutor_loader.py:[0m115} INFO[0m - Loaded executor: SequentialExecutor[0m

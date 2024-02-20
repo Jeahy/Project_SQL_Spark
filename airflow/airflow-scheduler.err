@@ -1,5 +1,0 @@
-[2024-02-19 16:31:13 +0000] [63147] [INFO] Starting gunicorn 21.2.0
-[2024-02-19 16:31:13 +0000] [63147] [INFO] Listening at: http://[::]:8793 (63147)
-[2024-02-19 16:31:13 +0000] [63147] [INFO] Using worker: sync
-[2024-02-19 16:31:13 +0000] [63148] [INFO] Booting worker with pid: 63148
-[2024-02-19 16:31:13 +0000] [63149] [INFO] Booting worker with pid: 63149
