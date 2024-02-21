@@ -12,7 +12,10 @@ I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and use
    - [Java](#java)  
    - [Apache Apark](#apache-spark)  
    - [PostgreSQL Server](#postgresql-server)  
-   - [Airflow](#airflow)  
+   - [Airflow](#airflow)
+   - [PySpark](#pyspark)
+   - [Kaggle](#kaggle)
+- [ETL with Spark and Airflow](#etl-with-spark-and-airflow)
 
 ## Architecture 
 ![Pipeline Architecture](https://github.com/Jeahy/e-commerce_data_pipeline/blob/main/images/architecture.png)
@@ -92,6 +95,8 @@ export SPARK_MASTER_WEBUI_PORT=8080
 export SPARK_WORKER_CORES=2
 export SPARK_WORKER_MEMORY=2g
 export SPARK_WORKER_WEBUI_PORT=8079
+# Set JAVA_HOME variable to correct path of Java installation
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
 ```
 started the master node:
 ```
@@ -191,6 +196,14 @@ I installed kaggle
 pip install kaggle
 ```
 
+## ETL with Spark and Airflow
+I created the following files
+- etl_dag.py
+- config.py
+- download_data_script.py
+- imp_clean_trans_script.py
+- validate_data_script.py
+launched and tested the process via the Airflow UI
 
 
 
