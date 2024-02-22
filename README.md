@@ -64,6 +64,11 @@ activated it
 ```
 source ~/.bashrc
 ```
+installed the PostrgreSQL JDBC Driver
+```
+wget https://jdbc.postgresql.org/download/postgresql-42.7.2.jar
+```
+
 ### Apache Spark
 I downloaded Apache Spark from the official website, unpacked it and saved it in /opt/spark
 ```
@@ -130,8 +135,12 @@ ALTER ROLE airflowuser SET timezone TO 'UTC';
 GRANT ALL PRIVILEGES ON DATABASE airflowdb TO airflowuser;
 \q
 ```
-
-  
+created etluser
+```
+psql -U postgres
+CREATE USER etluser WITH PASSWORD 'etlpassword' ;
+ALTER USER etluser CREATEDB;
+```
 ### Airflow
 I used pip to install Airflow
 ```
