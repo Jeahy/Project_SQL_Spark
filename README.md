@@ -141,11 +141,11 @@ psql -U postgres
 CREATE USER etluser WITH PASSWORD 'etlpassword' ;
 ALTER USER etluser CREATEDB;
 ```
-added line to postgresql.conf
+added line to postgresql.conf to allow connections from external machines
 ```
 listen_addresses = '*'
 ```
-added line to pg_hba.conf file
+added line to pg_hba.conf file to allow connections from specifies host:
 ```
 host    etldb    etluser    10.11.1.81/32    md5
 ```
