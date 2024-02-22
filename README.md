@@ -220,7 +220,11 @@ I created the following files
 - download_data_script.py
 - imp_clean_trans_script.py
 - validate_data_script.py
+- create_db_script.py
+- create_tables_script.py
+- load_data.py
 launched and tested the process via the Airflow UI
+![Airflow](https://github.com/Jeahy/e-commerce_data_pipeline/blob/main/images/airflow.png)
 
 
 
