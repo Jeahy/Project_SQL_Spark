@@ -46,7 +46,7 @@ def clean_transform_main(input_path, output_path):
     # Initialize Spark session with master URL(for standalone mode) and adjust memory settings
     spark = SparkSession.builder \
         .appName("CleanTransformApp") \
-        .master("spark://Jessicas-MBP:7077") \
+        .master("spark://10.11.1.81:7077") \
         .config("spark.driver.memory", "2g") \
         .config("spark.executor.memory", "2g") \
         .config("spark.sql.legacy.timeParserPolicy", "LEGACY") \

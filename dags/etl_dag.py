@@ -4,9 +4,14 @@ sys.path.append('/home/pkn/ecompipeline/')
 
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from scripts.config import input_raw, output_transformed
+from scripts.config import input_raw, output_transformed, db_url, user, password, host, port, new_db_name
 from scripts.download_data_script import download_data_main
 from scripts.imp_clean_trans_script import clean_transform_main
+from scripts.validate_data_script import validate_data_main
+from scripts.create_db_script import create_db_main
+from scripts.create_tables_script import create_tables_main
+from scripts.load_data_script import load_data_main
+
 
 
 default_args = {
@@ -45,5 +50,40 @@ import_clean_transform_task = PythonOperator(
     dag = dag,
 )
 
+validate_data_task = PythonOperator(
+    task_id = 'validate_data',
+    python_callable = validate_data_main,
+    op_args=[output_transformed],
+    provide_context=True,  # Pass the Airflow context to the function
+    dag = dag,
+)
+
+create_db_task = PythonOperator(
+    task_id = 'create_db',
+    python_callable = create_db_main,
+    op_args=[user, password, host, port, new_db_name, db_url],
+    provide_context=True,  # Pass the Airflow context to the function
+    dag = dag,
+)
+
+create_tables_task = PythonOperator(
+    task_id = 'create_tables',
+    python_callable = create_tables_main,
+    op_args=[db_url],
+    provide_context=True,  # Pass the Airflow context to the function
+    dag = dag,
+)
+
+load_data_task = PythonOperator(
+    task_id = 'load_data',
+    python_callable = load_data_main,
+    op_args=[output_transformed, db_url, user, password],
+    provide_context=True,  # Pass the Airflow context to the function
+    dag = dag,
+)
 
 download_data_task >> import_clean_transform_task
+import_clean_transform_task >> validate_data_task
+validate_data_task >> create_db_task
+create_db_task >> create_tables_task
+create_tables_task >> load_data_task
