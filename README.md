@@ -141,6 +141,14 @@ psql -U postgres
 CREATE USER etluser WITH PASSWORD 'etlpassword' ;
 ALTER USER etluser CREATEDB;
 ```
+added line to postgresql.conf
+```
+listen_addresses = '*'
+```
+added line to pg_hba.conf file
+```
+host    etldb    etluser    10.11.1.81/32    md5
+```
 ### Airflow
 I used pip to install Airflow
 ```
