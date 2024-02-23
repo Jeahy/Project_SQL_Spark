@@ -241,8 +241,23 @@ launched and tested the process via the Airflow UI
 ## API
 
 ### Setup API
-
+I installed FastAPI and necessary dependencies
+```
+pip install fastapi[all] databases[postgresql] python-dotenv python-jose[openssl]
+```
+upgraded email-validator due to conflict with flask-appbuilder
+```
+pip install email-validator --upgrade
+```
+create a separate database user for the API
+```
+CREATE USER apiuser WITH PASSWORD 'apipassword' ;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO apiuser;
+```
 ### Scripts API
+I created
+- .env file with security information
+- db_api.py file
 
 
 
