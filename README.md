@@ -18,9 +18,9 @@ I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and use
       - [PySpark](#pyspark)
       - [Kaggle](#kaggle)
    - [Scripts](#scripts)
-- [Api](#api)
-   - [Setup](#setup)
-   - [Scripts](#scripts)
+- [API](#api)
+   - [Setup API](#setup-api)
+   - [Scripts API](#scripts-api)
 
 ## Architecture 
 ![Pipeline Architecture](https://github.com/Jeahy/e-commerce_data_pipeline/blob/main/images/architecture.png)
@@ -238,9 +238,9 @@ launched and tested the process via the Airflow UI
 
 ## API
 
-### Setup
+### Setup API
 
-### Scripts
+### Scripts API
 
 
 
