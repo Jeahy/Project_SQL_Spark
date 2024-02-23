@@ -5,22 +5,24 @@ I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and use
 
 #### Chapters:  
 - [Architecture](#Architechture)  
-- [Setup](#setup)  
+- [General Setup](#general-setup)  
    - [The vm](#the-vm)  
    - [Git](#git)  
-   - [Virtual environment](#virtual-environment)  
-   - [Java](#java)  
-   - [Apache Apark](#apache-spark)  
-   - [PostgreSQL Server](#postgresql-server)  
-   - [Airflow](#airflow)
-   - [PySpark](#pyspark)
-   - [Kaggle](#kaggle)
-- [ETL with Spark and Airflow](#etl-with-spark-and-airflow)
+   - [Virtual environment](#virtual-environment)
+- [PostgreSQL Database & ETL with Apache Spark and Airflow](#postgresql-database-&-etl-with-apache-spark-and-airflow)
+   - [Setup](#setup)
+      - [Java](#java)  
+      - [Apache Apark](#apache-spark)  
+      - [PostgreSQL Server](#postgresql-server)  
+      - [Airflow](#airflow)
+      - [PySpark](#pyspark)
+      - [Kaggle](#kaggle)
+- [Scripts](#scripts)
 
 ## Architecture 
 ![Pipeline Architecture](https://github.com/Jeahy/e-commerce_data_pipeline/blob/main/images/architecture.png)
 
-## Setup  
+## General Setup  
   
 ### The vm
 First I tried installing Spark and Airflow on my laptop, but it died the minute I tried to start Airflow. Then I tried the free ec2 tier on AWS, but the same happened again. Now I'm trying my luck with this vm:  
@@ -50,7 +52,11 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-### Java
+## PostgreSQL Database & ETL with Apache Spark and Airflow
+
+### Setup
+
+#### Java
 installed Java (for Spark)
 ```
 sudo apt install openjdk-21-jdk
@@ -69,7 +75,7 @@ installed the PostrgreSQL JDBC Driver
 wget https://jdbc.postgresql.org/download/postgresql-42.7.2.jar
 ```
 
-### Apache Spark
+#### Apache Spark
 I downloaded Apache Spark from the official website, unpacked it and saved it in /opt/spark
 ```
 curl -O https://dlcdn.apache.org/spark/spark-3.5.0/spark-3.5.0-bin-hadoop3.tgz
@@ -113,7 +119,7 @@ sbin/start-worker.sh spark://10.11.1.81:7077
 ```
 and opened the web UI under http://185.150.32.130:8080/
   
-### PostgreSQL Server
+#### PostgreSQL Server
 I installed PostgreSQL with package manager
 ```
 sudo apt-get update
@@ -149,7 +155,7 @@ added line to pg_hba.conf file to allow connections from specifies host:
 ```
 host    etldb    etluser    10.11.1.81/32    md5
 ```
-### Airflow
+#### Airflow
 I used pip to install Airflow
 ```
 pip install apache-airflow[postgres]
@@ -196,7 +202,7 @@ airflow scheduler
 ```
 created dags, data, scripts directories and __init__.py files in the ecompipeline, dags and scripts directory.
 
-### PySpark
+#### PySpark
 I installed findspark
 ```
 pip install findspark
@@ -207,13 +213,13 @@ import findspark
 findspark.init('/opt/spark')
 ```
 
-### Kaggle
+#### Kaggle
 I installed kaggle
 ```
 pip install kaggle
 ```
 
-## ETL with Spark and Airflow
+### Scripts
 I created the following files
 - etl_dag.py
 - config.py
@@ -226,6 +232,12 @@ I created the following files
 launched and tested the process via the Airflow UI
 ![Airflow](https://github.com/Jeahy/e-commerce_data_pipeline/blob/main/images/airflow.png)
 
+
+## API
+
+### Setup
+
+### Scripts
 
 
 
