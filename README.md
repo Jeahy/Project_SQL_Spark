@@ -252,7 +252,12 @@ installed the psycopg2 and SQLAlchemy library to execute SQL
 pip install psycopg2-binary
 pip install sqlalchemy
 ```
-
+installed the passlib, PyJWT libraries
+```
+pip install passlib
+pip install PyJWT
+pip install python-multipart
+```
 created a .env file with sensitive information
 
 I installed FastAPI and necessary dependencies
