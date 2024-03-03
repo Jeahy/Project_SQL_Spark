@@ -241,32 +241,16 @@ launched and tested the process via the Airflow UI
 ## API
 
 ### Setup API
-created new virtual environment api_venv
+created new virtual environment secapi_venv
 
-installed fastAPI, Uvicorn and python-dotenv
+installed fastAPI, Uvicorn and python-dotenv, the psycopg2 and SQLAlchemy library to execute SQL, the passlib, PyJWT libraries
 ```
 pip install fastapi[all] uvicorn python-dotenv
-```
-installed the psycopg2 and SQLAlchemy library to execute SQL
-```
 pip install psycopg2-binary
 pip install sqlalchemy
-```
-installed the passlib, PyJWT libraries
-```
 pip install passlib
 pip install PyJWT
 pip install python-multipart
-```
-created a .env file with sensitive information
-
-I installed FastAPI and necessary dependencies
-```
-pip install fastapi[all] databases[postgresql] python-dotenv python-jose[openssl]
-```
-upgraded email-validator due to conflict with flask-appbuilder
-```
-pip install email-validator --upgrade
 ```
 create a separate database user for the API
 ```
@@ -275,29 +259,25 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO apiuser;
 ```
 ### Scripts API
 I created
-- .env file with security information
-- db_api.py
-- DTO folder
-   - User.py
-- controller folder
-   - UserController.py
-- entity_manager folder
-   - entity_manager.py
-- repository folder
-   - IUserRepository.py (interface class)
-   - UserRepository.py (implementation class)
-- service folder
-   - UserService.py
- 
-Using:
-dependency injection
-Repository Pattern
-
-- db_api.py file
+- api_app.py file
    - JWT (JSON Web Token) to securely transmit information between two parties
    - OAuth 2.0 authorization tool, allowing users to grant third-party applications limited access to their       resources without sharing their credentials
-   - HTTPS?: Encrypting data in transit using TLS (Transport Layer Security) to ensure secure communication between cliet and server
-   - Logs?: Keeping detailed logs of API requests and responses for auditing purposes.
+   - 
+- .env
+- create_apidb.py  
+
+optional further development:
+   - HTTPS - Encrypting data in transit using TLS (Transport Layer Security) to ensure secure communication between cliet and server
+   - Logs - Keeping detailed logs of API requests and responses for auditing purposes.
+
+launched the API:
+```
+uvicorn api_app:app --host 0.0.0.0 --port 8000 --reload
+```
+accessed FastAPI via webbrowser
+```
+http://185.150.32.130:8000/docs
+```
 
 
 
