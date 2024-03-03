@@ -1,13 +1,16 @@
 #Controllers act as the bridge between incoming requests and your application’s
 # core logic, providing a structured way to handle routes and endpoints. 
+import sys
+import os
+sys.path.append(os.path.abspath('/home/pkn/ecompipeline/api'))
 
 from fastapi import HTTPException, Depends, Header
 from fastapi.security import OAuth2PasswordRequestForm
-from services.UserService import UserService
-from DTOs.User import User
+from service.userservice import UserService
+from dto.user import User
 from fastapi_utils.cbv import cbv
 from fastapi_utils.inferring_router import InferringRouter
-from DTOs.CustomResponseMessage import CustomResponseMessage
+from dto.customresponsemessage import CustomResponseMessage
 
 user_controller_router = InferringRouter()
 
@@ -26,7 +29,7 @@ class UserController:
                 raise HTTPException(status_code=422, detail="User already exists")
         except Exception as e:
             raise HTTPException(status_code=e.status_code, detail=str(e.detail))
-    
+
     @user_controller_router.post("/token")
     def get_access_token(self, form_data: OAuth2PasswordRequestForm = Depends()):
         try:

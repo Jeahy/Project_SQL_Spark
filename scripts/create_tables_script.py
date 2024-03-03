@@ -41,9 +41,3 @@ def create_tables_main(db_url):
 
     print("Tables created successfully!")
 
-
-if __name__ == "__main__":
-
-    db_url = 'postgresql://myuser:mypassword@localhost:5432/postgres_spark'
-    
-    create_tables(db_url)

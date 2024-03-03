@@ -1,12 +1,18 @@
 #implementation of the IUserRepository Class
+import sys
+import os
+sys.path.append(os.path.abspath('/home/pkn/ecompipeline/api'))
 
-from repositories.IUserRepository import IUserRepository
-from DTOs.User import User, ActiveSession
-from entity_manager.entity_manager import EntityManager
+from repository.iuserrepository import IUserRepository
+from dto.user import User
+from dto.activesession import ActiveSession
+from entity_manager.entity_manager import entity_manager
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
-import os
+
+
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi import Depends
 from passlib.context import CryptContext
 from datetime import timedelta, datetime
 from passlib.hash import bcrypt
@@ -14,14 +20,16 @@ import jwt
 from jwt import PyJWTError
 from fastapi import HTTPException
 
+
+
 dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env')
 load_dotenv(dotenv_path=dotenv_path)
 
 # CryptContext for hashing passwords
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-# Get the EntityManager instance
-entity_manager = EntityManager()
+# Use the get_session method from the instance
+session = entity_manager.get_session()
 
 class UserRepository(IUserRepository):
     def __init__(self):
@@ -122,4 +130,22 @@ class UserRepository(IUserRepository):
         try:
             payload = jwt.decode(existing_session.access_token, os.environ.get("SECRET_KEY"),
                                  algorithms=[os.environ.get("ALGORITHM")])
-           
+            expiry_time = payload.get("exp")
+            current_time = datetime.utcnow().timestamp()
+
+            if expiry_time is None or expiry_time < current_time:
+                # Token has expired
+                self.activeSessionsEntityManager.delete_many({"username": username})
+                return False
+        
+        except PyJWTError:
+            # there was an error in processing the token, delete the session and return false as session is no longer active.
+            self.activeSessionsEntityManager.delete_many({"username": username})
+            return False
+
+        return True
+
+    def get_access_token_from_active_session(self, username: str):
+        existing_session = self.activeSessionsEntityManager.find_one({"username": username})
+        if existing_session is not None: return existing_session["access_token"]
+        return None         

@@ -34,11 +34,16 @@ CREATE_ACTIVE_SESSIONS_TABLE_QUERY = """
 """
 
 # Connect to the default PostgreSQL database (usually "postgres") to create the new database
-with psycopg2.connect(dbname="postgres", user=DB_USER, password=DB_PASSWORD, host=DB_HOST, port=DB_PORT) as conn:
-    conn.autocommit = True  # Enable autocommit to execute DDL statements
-    with conn.cursor() as cursor:
-        # Create the new database
-        cursor.execute(CREATE_DATABASE_QUERY)
+create_db_conn = psycopg2.connect(dbname="postgres", user=DB_USER, password=DB_PASSWORD, host=DB_HOST, port=DB_PORT)
+create_db_conn.autocommit = True  # Enable autocommit to execute DDL statements
+create_db_cursor = create_db_conn.cursor()
+
+# Create the new database
+create_db_cursor.execute(CREATE_DATABASE_QUERY)
+
+# Close the cursor and connection
+create_db_cursor.close()
+create_db_conn.close()
 
 # Connect to the newly created database
 with psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST, port=DB_PORT) as conn:

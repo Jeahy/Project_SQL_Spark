@@ -8,23 +8,19 @@ from dotenv import load_dotenv
 dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env')
 load_dotenv(dotenv_path=dotenv_path)
 
-# Get db credentials from environment variables
 db_url = os.environ.get("DATABASE_URL")
 
-# Create a SQLAlchemy engine
-engine = create_engine(db_url)
-
-# Create the session factory
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-
-# EntityManager class for handling database sessions
 class EntityManager:
-    def __init__(self, session_factory):
-        self.session_factory = session_factory
+    def __init__(self, db_url):
+        self.db_url = db_url
+        print(f"DB URL: {db_url}")  # Print the value of db_url for debugging
 
     def get_session(self):
-        return self.session_factory()
+        # Create a SQLAlchemy engine
+        engine = create_engine(db_url)
+        # Create the session factory
+        self.SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+        return self.SessionLocal()
 
 # Instantiate the EntityManager
-entity_manager = EntityManager(SessionLocal)
+entity_manager = EntityManager(db_url)

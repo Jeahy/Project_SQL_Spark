@@ -29,3 +29,6 @@ __pycache__/
 
 # Aiflow
 airflow/
+
+# first attempt at an API
+api/

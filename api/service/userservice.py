@@ -1,8 +1,10 @@
 #implementation level/business logic and data manipulation relevant to a specific domain or functionality
+import sys
+import os
+sys.path.append(os.path.abspath('/home/pkn/ecompipeline/api'))
 
-
-from repositories.UserRepository import UserRepository
-from DTOs.User import User
+from repository.userrepository import UserRepository
+from dto.user import User
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi import Depends
 

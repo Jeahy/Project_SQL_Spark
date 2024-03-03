@@ -3,9 +3,13 @@
 
 # dedicated layer for database interactions
 # repository interface with abstract methods in the Repository Pattern
+import sys
+import os
+sys.path.append(os.path.abspath('/home/pkn/ecompipeline/api'))
 
 from abc import abstractmethod
-from DTOs.User import User
+from dto.user import User
+from dto.activesession import ActiveSession
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi import Depends
 

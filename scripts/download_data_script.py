@@ -24,3 +24,4 @@ def download_data_main():
 
     # Optionally, remove the downloaded zip file
     os.remove(zip_file_path)
+    
