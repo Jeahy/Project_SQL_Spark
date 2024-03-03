@@ -251,6 +251,7 @@ pip install sqlalchemy
 pip install passlib
 pip install PyJWT
 pip install python-multipart
+pip install python-jose[cryptography]
 ```
 create a separate database user for the API
 ```
