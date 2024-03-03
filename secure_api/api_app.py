@@ -17,15 +17,20 @@ DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST = os.getenv("DB_HOST")
 DB_PORT = os.getenv("DB_PORT")
 
+ETL_DB_NAME = os.getenv("ETL_DB_NAME")
+ETL_DB_USER = os.getenv("ETL_DB_USER")
+ETL_DB_PASSWORD = os.getenv("ETL_DB_PASSWORD")
+
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30))
 
-#to create secret key run: openssl rand -hex 32
-print("DB_NAME:", DB_NAME)
-print("DB_USER:", DB_USER)
-# Connect to the PostgreSQL database
+
+# Connect to the PostgreSQL user database
 conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST, port=DB_PORT)
+
+# Connect to the PostgreSQL etl database
+conn_etl = psycopg2.connect(dbname=ETL_DB_NAME, user=ETL_DB_USER, password=ETL_DB_PASSWORD, host=DB_HOST, port=DB_PORT)
 
 
 class Token(BaseModel): #used for validation of json data
@@ -48,8 +53,15 @@ class UserInDB(User):
     hashed_password: str
 
 
+class StockItem(BaseModel):
+    StockCode: str
+    Description: str
+    UnitPrice: float
+
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
 
 app = FastAPI() #create instance of fastapi, referred to in uvicorn command
 
@@ -71,6 +83,7 @@ def get_user_from_db(username: str):
     if user_data:
         return UserInDB(**dict(zip(["username", "email", "full_name", "hashed_password", "disabled"], user_data)))
     return None
+
 
 def authenticate_user(username: str, password: str):
     user = get_user_from_db(username)
@@ -122,6 +135,20 @@ async def get_current_active_user(current_user: UserInDB = Depends(get_current_u
 
     #function to able/enable users from logging in
 
+def get_stock_from_db():
+    with conn_etl.cursor() as cursor:
+        cursor.execute("SELECT * FROM stock_table")
+        return cursor.fetchall()
+
+
+def add_stock_item_to_db(item: StockItem):
+    with conn_etl.cursor() as cursor:
+        cursor.execute(
+            "INSERT INTO stock_table (StockCode, Description, UnitPrice) VALUES (%s, %s, %s);",
+            (item.StockCode, item.Description, item.UnitPrice)
+        )
+    conn_etl.commit()
+
 
 @app.post("/token", response_model=Token) #this is route taken when signing in that gives us our token
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
@@ -135,15 +162,31 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     return {"access_token": access_token, "token_type": "bearer"} #this is the json data token
 
 
-@app.get("/users/me/", response_model=User)
-async def read_users_me(current_user: User = Depends(get_current_active_user)): #depends on active user
+
+@app.get("/stock/list")
+async def read_stock_table(current_user: User = Depends(get_current_active_user)):
+    stock_table = get_stock_table_from_db()
+
+    # Convert the data to CSV format
+    csv_data = StringIO()
+    csv_writer = csv.writer(csv_data)
+    csv_writer.writerows(stock_table)
+
+    # Create a StreamingResponse with CSV content
+    response = StreamingResponse(iter([csv_data.getvalue()]), media_type="text/csv")
+    response.headers["Content-Disposition"] = 'attachment; filename="stock_table.csv"'
+    return response
+
+
+@app.post("/stock/item", response_model=User)
+async def add_stock_item(current_user: User = Depends(get_current_active_user)): #depends on active user
     return current_user
 
 
-@app.get("/users/me/items")
-async def read_own_items(current_user: User = Depends(get_current_active_user)):
-    return [{"item_id": 1, "owner": current_user}]
-
+@app.post("/stock/item", response_model=StockItem)
+async def add_stock_item(item: StockItem, current_user: User = Depends(get_current_active_user)):
+    add_stock_item_to_db(item)
+    return item
 
 #in real life front end would save token for certain time
 
