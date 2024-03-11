@@ -279,9 +279,9 @@ accessed FastAPI via webbrowser
 ```
 http://185.150.32.130:8000/docs
 ```
+![API Branches](https://github.com/Jeahy/e-commerce_data_pipeline/blob/main/images/apibranches.png)
 ![API Authorization](https://github.com/Jeahy/e-commerce_data_pipeline/blob/main/images/apiauthorization.png)
 ![API Authorized](https://github.com/Jeahy/e-commerce_data_pipeline/blob/main/images/apiauthorized.png)
-![API Branches](https://github.com/Jeahy/e-commerce_data_pipeline/blob/main/images/apibranches.png)
 ![Pull List](https://github.com/Jeahy/e-commerce_data_pipeline/blob/main/images/pulllist.png)
 ![CSV](https://github.com/Jeahy/e-commerce_data_pipeline/blob/main/images/csv.png)
 
