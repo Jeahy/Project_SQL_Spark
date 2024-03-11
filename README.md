@@ -121,6 +121,7 @@ started the worker node:
 sbin/start-worker.sh spark://10.11.1.81:7077
 ```
 and opened the web UI under http://185.150.32.130:8080/
+![Spark Web Ui](https://github.com/Jeahy/e-commerce_data_pipeline/blob/main/images/spark_ui.png)
   
 #### PostgreSQL Server
 I installed PostgreSQL with package manager
