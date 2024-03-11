@@ -28,8 +28,8 @@ CREATE_USERS_TABLE_QUERY = """
 INSERT_USERS_DATA_QUERY = """
     INSERT INTO users (username, full_name, email, hashed_password, disabled)
     VALUES 
-    ('tim', 'Tim Russo', 'tim@gmail.com', '$2b$12$HxWHkvMuL7WrZad6lcCfluNFj1/Zp63lvP5aUrKlSTYtoFzPXHOtu', False),
-    ('anna', 'Anna Moss', 'anna@gmail.com', '$2b$12$iUAQ4TKFRd9DmUAGKvfVb.MNaCX65NWnOY3QiOOqI53ue6rlnUHJq', False);
+    ('tim', 'Tim Russo', 'tim@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$B+Acw/i/FwKgtDamNIaw1g$uQx8GR0fzQHU6cTQMjguz5tdXnNngLeV6LQBKB/7q04', False),
+    ('anna', 'Anna Moss', 'anna@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$mTOmlNK61/pfy1krpTQGgA$cOEVkF2RTN7Ao9OnDaEtKvGSUMYuhxlKAhk3vO3rCWc', False);
 """
 
 # Connect to the default PostgreSQL database (usually "postgres") to create the new database

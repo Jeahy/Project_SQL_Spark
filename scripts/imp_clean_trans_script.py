@@ -38,9 +38,9 @@ def transform_data(df):
 
     # Adjust data types for specific columns
     df = df.withColumn("InvoiceDate", to_timestamp(col("InvoiceDate"), date_format_pattern))
-
+    
+    # Return the transformed DataFrame
     return df
-
 
 def clean_transform_main(input_path, output_path):
     # Initialize Spark session with master URL(for standalone mode) and adjust memory settings
@@ -69,7 +69,7 @@ def clean_transform_main(input_path, output_path):
 
     # Write the result to a new location
     
-    transformed_df.write.parquet(output_path, mode="overwrite")
+    transformed_df.coalesce(1).write.csv(output_transformed, mode="overwrite")
 
     # Stop the Spark session
     spark.stop()

@@ -1,13 +1,17 @@
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 from passlib.context import CryptContext
+from passlib.hash import argon2 as passlib_argon2
 import os
 import psycopg2
 from psycopg2 import sql
+from io import StringIO
+import csv
 
 load_dotenv()
 
@@ -59,7 +63,7 @@ class StockItem(BaseModel):
     UnitPrice: float
 
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
@@ -144,7 +148,7 @@ def get_stock_from_db():
 def add_stock_item_to_db(item: StockItem):
     with conn_etl.cursor() as cursor:
         cursor.execute(
-            "INSERT INTO stock_table (StockCode, Description, UnitPrice) VALUES (%s, %s, %s);",
+            'INSERT INTO stock_table ("StockCode", "Description", "UnitPrice") VALUES (%s, %s, %s);',
             (item.StockCode, item.Description, item.UnitPrice)
         )
     conn_etl.commit()
@@ -163,13 +167,21 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 
 
 
-@app.get("/stock/list")
+@app.get("/stock/pulllist")
 async def read_stock_table(current_user: User = Depends(get_current_active_user)):
-    stock_table = get_stock_table_from_db()
+    stock_table = get_stock_from_db()
+
+    # Define headers
+    headers = ["StockCode", "Description", "UnitPrice"]
 
     # Convert the data to CSV format
     csv_data = StringIO()
     csv_writer = csv.writer(csv_data)
+    
+    # Write headers
+    csv_writer.writerow(headers)
+
+    # Write data rows
     csv_writer.writerows(stock_table)
 
     # Create a StreamingResponse with CSV content
@@ -177,13 +189,7 @@ async def read_stock_table(current_user: User = Depends(get_current_active_user)
     response.headers["Content-Disposition"] = 'attachment; filename="stock_table.csv"'
     return response
 
-
-@app.post("/stock/item", response_model=User)
-async def add_stock_item(current_user: User = Depends(get_current_active_user)): #depends on active user
-    return current_user
-
-
-@app.post("/stock/item", response_model=StockItem)
+@app.post("/stock/additem", response_model=StockItem)
 async def add_stock_item(item: StockItem, current_user: User = Depends(get_current_active_user)):
     add_stock_item_to_db(item)
     return item

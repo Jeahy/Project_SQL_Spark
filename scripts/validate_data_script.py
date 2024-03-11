@@ -3,8 +3,27 @@ from pyspark.sql.types import StructType, StructField, IntegerType, TimestampTyp
 from pyspark.sql.functions import col
 
 def read_transformed_data(spark, output_transformed):
-    # Read raw data into a DataFrame
-    df = spark.read.parquet(output_transformed, header=True, inferSchema=True)
+    # Define the schema based on your expected column names and data types
+    expected_schema = StructType([
+        StructField('InvoiceNo', StringType(), True),
+        StructField('StockCode', StringType(), True), 
+        StructField('Description', StringType(), True), 
+        StructField('Quantity', IntegerType(), True),
+        StructField('InvoiceDate', TimestampType(), True),
+        StructField('UnitPrice', DoubleType(), True), 
+        StructField('CustomerID', IntegerType(), True), 
+        StructField('Country', StringType(), True)
+        # Add more fields as needed
+    ])
+
+    # Read raw data into a DataFrame without header
+    df = spark.read.csv(output_transformed, header=False, schema=expected_schema)
+
+    # Manually assign column names
+    df = df.toDF(*[field.name for field in expected_schema.fields])
+
+    df.printSchema()
+    df.show(5, truncate=False)
     return df
 
 
@@ -24,7 +43,7 @@ def validate_duplicates(df):
     # Sort the DataFrame by InvoiceNo before checking for duplicates
     df = df.orderBy("InvoiceNo")
     
-    columns_to_check = ['InvoiceNo', 'StockCode', 'Quantity', 'InvoiceDate', 'CustomerID']
+    columns_to_check = ['InvoiceNo', 'Stockcode', 'Quantity', 'InvoiceDate', 'CustomerID']
 
     # Show more information about the duplicates
     duplicate_count = df.groupBy(columns_to_check).count().filter("count > 1").count()
@@ -41,11 +60,11 @@ def validate_duplicates(df):
 
 def validate_schema(df):
     expected_schema = StructType([
-        StructField("InvoiceNo", StringType(), True),
+        StructField('InvoiceNo', StringType(), True),
         StructField('StockCode', StringType(), True), 
         StructField('Description', StringType(), True), 
         StructField('Quantity', IntegerType(), True),
-        StructField("InvoiceDate", TimestampType(), True),
+        StructField('InvoiceDate', TimestampType(), True),
         StructField('UnitPrice', DoubleType(), True), 
         StructField('CustomerID', IntegerType(), True), 
         StructField('Country', StringType(), True)
@@ -72,8 +91,12 @@ def validate_data_main(output_transformed):
     
 
     # Read transformed data into a DataFrame
-
     transformed_data_df = read_transformed_data(spark, output_transformed)
+
+    # Print DataFrame columns for troubleshooting
+    print("DataFrame columns:")
+    for col_name in transformed_data_df.columns:
+        print(col_name)
     
     # Validate data
     validate_null_values(transformed_data_df)
