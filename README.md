@@ -319,7 +319,7 @@ sudo docker run hello-world
 ```
 #### Kubernetes
 I installed MicroK8s for Linux
-````
+```
 sudo snap install microk8s --classic
 ```
 added my user to the microk8s admin group
