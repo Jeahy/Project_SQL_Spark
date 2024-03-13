@@ -3,9 +3,6 @@ from pyspark.sql.types import StructType, StructField, IntegerType, TimestampTyp
 from sqlalchemy import create_engine
 import pandas as pd
 
-# Add the path to the PostgreSQL JDBC driver JAR file
-postgres_jdbc_driver_path = "/opt/spark/jars/postgresql-42.7.2.jar"
-
 
 def read_transformed_data(spark, output_transformed):
     # Define the schema based on your expected column names and data types
@@ -45,11 +42,11 @@ def load_to_postgres(df, table_name, db_url, jdbc_db_url, user, password):
     except Exception as e:
         print(f"Error: {e}")
 
-def load_data_main(output_transformed, db_url, jdbc_db_url, user, password):
+def load_data_main(spark_master, postgres_jdbc_driver_path, output_transformed, db_url, jdbc_db_url, user, password):
     try:
         spark = SparkSession.builder \
             .appName("ValidateDataApp") \
-            .master("spark://10.11.1.81:7077") \
+            .master(spark_master) \
             .config("spark.driver.memory", "2g") \
             .config("spark.executor.memory", "2g") \
             .config("spark.jars", f"{postgres_jdbc_driver_path}") \

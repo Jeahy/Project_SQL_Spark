@@ -1,0 +1,30 @@
+# Use a base image with your desired Python version
+FROM python:3.10.12
+
+
+
+# Set the working directory in the container
+WORKDIR /home/user/airflow_project
+
+# Copy the DAG and scripts into the container
+COPY dags /home/user/airflow_project/dags
+COPY scripts /home/user/airflow_project/scripts
+COPY requirements.txt /home/user/airflow_project/
+
+# Install project dependencies
+RUN pip install -r requirements.txt
+
+# Install Apache Airflow dependencies
+RUN pip install apache-airflow findspark pyspark
+
+#Expose Airflow Web Server
+EXPOSE 8081
+
+# Set environment variables
+ENV AIRFLOW_CONFIG=/path/to/config/airflow.cfg
+
+# Initialize the Airflow database (replace "your-backend" with your database backend)
+RUN airflow db init
+
+# Start Airflow web server and scheduler
+CMD ["webserver", "--port", "8081", "--host", "0.0.0.0", "--pid", "/tmp/airflow-webserver.pid"] 

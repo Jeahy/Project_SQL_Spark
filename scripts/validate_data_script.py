@@ -2,6 +2,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, IntegerType, TimestampType, StringType, DoubleType
 from pyspark.sql.functions import col
 
+
 def read_transformed_data(spark, output_transformed):
     # Define the schema based on your expected column names and data types
     expected_schema = StructType([
@@ -80,11 +81,11 @@ def validate_schema(df):
         print(actual_schema)
         raise ValueError("Schema validation failed. Actual schema doesn't match expected schema.")
 
-def validate_data_main(output_transformed):
+def validate_data_main(spark_master, output_transformed):
     # Initialize Spark session with master URL(for standalone mode) and adjust memory settings
     spark = SparkSession.builder \
         .appName("ValidateDataApp") \
-        .master("spark://10.11.1.81:7077") \
+        .master(spark_master) \
         .config("spark.driver.memory", "2g") \
         .config("spark.executor.memory", "2g") \
         .getOrCreate()

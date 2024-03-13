@@ -4,7 +4,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, to_timestamp
 from pyspark.sql.types import StringType, DoubleType, IntegerType
 from pyspark.sql.functions import count, when
-from scripts.config import input_raw, output_transformed
+
 
 
 def display_data_info(df):
@@ -42,18 +42,18 @@ def transform_data(df):
     # Return the transformed DataFrame
     return df
 
-def clean_transform_main(input_path, output_path):
+def clean_transform_main(spark_master, input_raw, output_transformed):
     # Initialize Spark session with master URL(for standalone mode) and adjust memory settings
     spark = SparkSession.builder \
         .appName("CleanTransformApp") \
-        .master("spark://10.11.1.81:7077") \
+        .master(spark_master) \
         .config("spark.driver.memory", "2g") \
         .config("spark.executor.memory", "2g") \
         .config("spark.sql.legacy.timeParserPolicy", "LEGACY") \
         .getOrCreate()
 
     # Read raw data into a DataFrame using import_data_script
-    raw_data_df = spark.read.csv(input_path, header=True, inferSchema=True)
+    raw_data_df = spark.read.csv(input_raw, header=True, inferSchema=True)
     
     # Display raw data information
     display_data_info(raw_data_df)

@@ -3,7 +3,8 @@ import sys
 sys.path.append('/home/pkn/ecompipeline/')
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from scripts.config import input_raw, output_transformed, db_url, jdbc_db_url, user, password, host, port, new_db_name
+from scripts.config import kaggle_username, kaggle_key, download_path, dataset_name, zip_name, spark_master, \
+input_raw, output_transformed, db_url, jdbc_db_url, user, password, host, port, new_db_name, postgres_jdbc_driver_path
 from scripts.download_data_script import download_data_main
 from scripts.imp_clean_trans_script import clean_transform_main
 from scripts.validate_data_script import validate_data_main
@@ -31,18 +32,18 @@ dag = DAG(
     catchup=False,
 )
 
-
 download_data_task = PythonOperator(
     task_id = 'download_data',
     python_callable = download_data_main,
+    op_args=[kaggle_username, kaggle_key, download_path, dataset_name,zip_name],
     provide_context=True,  # Pass the Airflow context to the function
-    dag = dag,
+    dag = dag, 
 )
 
 import_clean_transform_task = PythonOperator(
     task_id = 'import_clean_transform',
     python_callable = clean_transform_main,
-    op_args=[input_raw, output_transformed],
+    op_args=[spark_master, input_raw, output_transformed],
     provide_context=True,  # Pass the Airflow context to the function
     dag = dag,
 )
@@ -50,7 +51,7 @@ import_clean_transform_task = PythonOperator(
 validate_data_task = PythonOperator(
     task_id = 'validate_data',
     python_callable = validate_data_main,
-    op_args=[output_transformed],
+    op_args=[spark_master, output_transformed],
     provide_context=True,  # Pass the Airflow context to the function
     dag = dag,
 )
@@ -74,7 +75,7 @@ create_tables_task = PythonOperator(
 load_data_task = PythonOperator(
     task_id = 'load_data',
     python_callable = load_data_main,
-    op_args=[output_transformed, db_url, jdbc_db_url, user, password],
+    op_args=[spark_master, postgres_jdbc_driver_path, output_transformed, db_url, jdbc_db_url, user, password],
     provide_context=True,  # Pass the Airflow context to the function
     dag = dag,
 )
