@@ -40,7 +40,7 @@ set up several ports for inbound (and outbound) traffic:
 8080 - Spark UI  
 5432 - Database  
 3000 - API  
-6443, 2379-2380, 10250, 10251, and 10252 - Kubernetes  
+6443, 2379-2380, 8443, 10250, 10251, and 10252 - Kubernetes  
 8081 - Airflow UI  
 5000 - Docker 
   
