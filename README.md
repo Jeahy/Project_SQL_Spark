@@ -24,6 +24,8 @@ I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and use
 - [Docker & Kubernetes](#docker&kubernetes)
    - [Setup](#setup)
       - [Docker](#Docker)
+      - [Kubernetes](#Kubernetes)
+   - [Scripts](#scripts)
 
 ## Architecture 
 ![Pipeline Architecture](https://github.com/Jeahy/e-commerce_data_pipeline/blob/main/images/architecture.png)
@@ -349,5 +351,16 @@ start and stop Kubernetes to save battery
 microk8s start
 microk8s stop
 ```
+### Scripts
+I created a Dockerfile
+and created the docker image
+```
+sudo docker build -f Dockerfile_airflow -t ecompipeline-image:latest .
+```
+tagged the docker image
+```
+docker push your_registry_username/ecompipeline-image:latest
+````
+logged into 
 
 
