@@ -359,8 +359,11 @@ sudo docker build -f Dockerfile_airflow -t ecompipeline-image:latest .
 ```
 tagged the docker image
 ```
-docker push your_registry_username/ecompipeline-image:latest
+sudo docker tag ecompipeline-image:latest jeahy/ecompipeline-image:latest
 ````
-logged into 
+logged into Docker with access token from your Docker CLI client
+```
+docker login -u jeahy
+```
 
 
