@@ -353,7 +353,7 @@ microk8s stop
 ```
 ### Scripts
 I created a Dockerfile
-and created the docker image
+and created the docker image and created a repository etlimage on docker hub
 ```
 sudo docker build -f Dockerfile_airflow -t ecompipeline-image:latest .
 ```
@@ -364,6 +364,10 @@ sudo docker tag ecompipeline-image:latest jeahy/ecompipeline-image:latest
 logged into Docker with access token from your Docker CLI client
 ```
 docker login -u jeahy
+```
+pushed the docker image to docker hub
+```
+docker push jeahy/etlimage:latest
 ```
 
 
