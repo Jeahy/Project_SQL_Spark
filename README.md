@@ -320,37 +320,9 @@ verified that the Docker Engine installation is successful by running the hello-
 sudo docker run hello-world
 ```
 #### Kubernetes
-I installed MicroK8s for Linux
-```
-sudo snap install microk8s --classic
-```
-added my user to the microk8s admin group
-```
-sudo usermod -a -G microk8s $USER
-sudo chown -f -R $USER ~/.kube
-su - $USER
-```
-checked the status while Kubernetes starts
-```
-microk8s status --wait-ready
-```
-turned on the services dashboard, dns, ingress
-```
-microk8s enable dashboard dns ingress
-```
-started using Kubernetes
-```
-microk8s kubectl get all --all-namespaces
-```
-accessed the Kubernetes Dashboard
-```
-microk8s dashboard-proxy
-```
-start and stop Kubernetes to save battery
-```
-microk8s start
-microk8s stop
-```
+I installed kind, helm, kubectl
+
+create a kind cluster
 ### Scripts
 I created a Dockerfile
 and created the docker image and created a repository etlimage on docker hub
