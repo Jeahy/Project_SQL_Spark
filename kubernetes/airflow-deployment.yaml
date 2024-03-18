@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: airflow
+  name: ecompipeline
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: airflow
+        app: ecompipeline
     spec:
       containers:
-        - name: airflow
-          image: your-airflow-image:tag
+        - name: ecompipeline
+          image: ecompipeline-image:latest
           volumeMounts:
-            - name: airflow-config
-              mountPath: /home/user/airflow_project/scripts
+            - name: ecompipeline-config-volume
+              mountPath: /home/pkn/ecompipeline/config
           # Add other container settings
       volumes:
-        - name: airflow-config
+        - name: ecompipeline-config-volume
           persistentVolumeClaim:
-            claimName: airflow-config-pvc
+            claimName: ecompipeline-config-pvc

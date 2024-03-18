@@ -3,7 +3,7 @@ import sys
 sys.path.append('/home/pkn/ecompipeline/')
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from scripts.config import kaggle_username, kaggle_key, download_path, dataset_name, zip_name, spark_master, \
+from config.config import kaggle_username, kaggle_key, download_path, dataset_name, zip_name, spark_master, \
 input_raw, output_transformed, db_url, jdbc_db_url, user, password, host, port, new_db_name, postgres_jdbc_driver_path
 from scripts.download_data_script import download_data_main
 from scripts.imp_clean_trans_script import clean_transform_main
