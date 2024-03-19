@@ -325,8 +325,7 @@ I installed kind, helm, kubectl
 created a local kubernetes cluster with kind-cluster.yaml. It creates four nodes, one control plane, and three workers. Each worker node has a label helping to run tasks on a specific node.
 
 ### Scripts
-I created a Dockerfile
-and created the docker image and created a repository etlimage on docker hub
+I created a Dockerfile, the docker image and a repository called "etlimage" on docker hub
 ```
 sudo docker build -f Dockerfile_airflow -t ecompipeline-image:latest .
 ```
@@ -342,5 +341,11 @@ pushed the docker image to docker hub
 ```
 docker push jeahy/etlimage:latest
 ```
-
+And I did the same for the API
+```
+sudo docker build -f Dockerfile_api -t sec_api_image:latest .
+sudo docker tag sec_api_image:latest jeahy/sec_api:latest
+docker login -u jeahy
+docker push jeahy/sec_api:latest
+```
 
