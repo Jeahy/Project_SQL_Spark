@@ -22,10 +22,9 @@ I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and use
    - [Setup API](#setup-api)
    - [Scripts API](#scripts-api)
 - [Docker & Kubernetes](#docker&kubernetes)
-   - [Setup](#setup)
-      - [Docker](#Docker)
-      - [Kubernetes](#Kubernetes)
    - [Dockerizing Airflow dags and API](#dockerizing-airflow-dags-and-api)
+   - [Kubernetes](#Kubernetes)
+     
 
 ## Architecture 
 ![Pipeline Architecture](https://github.com/Jeahy/e-commerce_data_pipeline/blob/main/images/architecture.png)
@@ -293,8 +292,7 @@ http://185.150.32.130:8000/docs
 
 
 ## Docker & Kubernetes
-### Setup
-#### Docker
+### Dockerizing Airflow dags and API
 I added Docker's official GPG key:
 ```
 sudo apt-get update
@@ -319,12 +317,6 @@ verified that the Docker Engine installation is successful by running the hello-
 ```
 sudo docker run hello-world
 ```
-#### Kubernetes
-I installed kind, helm, kubectl
-
-created a local kubernetes cluster with kind-cluster.yaml. It creates four nodes, one control plane, and three workers. Each worker node has a label helping to run tasks on a specific node.
-
-### Dockerizing Airflow dags and API
 I created a Dockerfile, the docker image and a repository called "etlimage" on docker hub
 ```
 sudo docker build -f Dockerfile_airflow -t ecompipeline-image:latest .
@@ -354,5 +346,10 @@ docker build -t sec_api_image .
 docker run -d -p 8000:8000 --env-file .env sec_api_image
 ```
 or I run them with Kubernetes which I'll set up next
+
+### Kubernetes
+I installed kind, helm, kubectl
+
+created a local kubernetes cluster with kind-cluster.yaml. It creates four nodes, one control plane, and three workers. Each worker node has a label helping to run tasks on a specific node.
 
 
