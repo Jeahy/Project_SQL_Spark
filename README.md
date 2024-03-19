@@ -25,7 +25,7 @@ I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and use
    - [Setup](#setup)
       - [Docker](#Docker)
       - [Kubernetes](#Kubernetes)
-   - [Scripts](#scripts)
+   - [Dockerizing Airflow dags and API](#dockerizing-airflow-dags-and-api)
 
 ## Architecture 
 ![Pipeline Architecture](https://github.com/Jeahy/e-commerce_data_pipeline/blob/main/images/architecture.png)
@@ -324,7 +324,7 @@ I installed kind, helm, kubectl
 
 created a local kubernetes cluster with kind-cluster.yaml. It creates four nodes, one control plane, and three workers. Each worker node has a label helping to run tasks on a specific node.
 
-### Scripts
+### Dockerizing Airflow dags and API
 I created a Dockerfile, the docker image and a repository called "etlimage" on docker hub
 ```
 sudo docker build -f Dockerfile_airflow -t ecompipeline-image:latest .
@@ -348,4 +348,11 @@ sudo docker tag sec_api_image:latest jeahy/sec_api:latest
 docker login -u jeahy
 docker push jeahy/sec_api:latest
 ```
+then I could create a Docker container and run it while passing the .env file to it which I didn't include in the image
+```
+docker build -t sec_api_image .
+docker run -d -p 8000:8000 --env-file .env sec_api_image
+```
+or I run them with Kubernetes which I'll set up next
+
 
