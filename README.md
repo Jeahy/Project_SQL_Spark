@@ -322,7 +322,8 @@ sudo docker run hello-world
 #### Kubernetes
 I installed kind, helm, kubectl
 
-create a kind cluster
+created a local kubernetes cluster with kind-cluster.yaml. It creates four nodes, one control plane, and three workers. Each worker node has a label helping to run tasks on a specific node.
+
 ### Scripts
 I created a Dockerfile
 and created the docker image and created a repository etlimage on docker hub
