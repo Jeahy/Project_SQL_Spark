@@ -350,6 +350,6 @@ or I run them with Kubernetes which I'll set up next
 ### Kubernetes
 I installed kind, helm, kubectl
 
-created a local kubernetes cluster with kind-cluster.yaml. It creates four nodes, one control plane, and three workers. Each worker node has a label helping to run tasks on a specific node.
+In a next step I'll create a local kubernetes cluster with kind-cluster.yaml. It creates four nodes, one control plane, and three workers. Each worker node has a label helping to run tasks on a specific node.
 
 
