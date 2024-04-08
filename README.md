@@ -12,7 +12,7 @@ I wanted to learn more about Spark, Airflow, Kubernetes, Docker and APIs and use
 - [PostgreSQL Database & ETL with Apache Spark and Airflow](#postgresql-database-&-etl-with-apache-spark-and-airflow)
    - [Setup](#setup)
       - [Java](#java)  
-      - [Apache Apark](#apache-spark)  
+      - [Apache Spark](#apache-spark)  
       - [PostgreSQL Server](#postgresql-server)  
       - [Airflow](#airflow)
       - [PySpark](#pyspark)
